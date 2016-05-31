@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <title>ChatWale</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Raleway:400,700' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= favicon_link_tag 'favicon.ico' %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <%= link_to 'Chatwale', root_path, class: 'navbar-brand' %>
+<div id="sidebar">
+    <div id="logo">
+      <%= link_to root_path do %>
+        <%= image_tag "logo.svg" %>
+      <% end %>
     </div>
-    <ul class="nav navbar-nav">
+
+    <ul>
+      <li class="category"><%= link_to 'Chatwale', root_path %></li>
       <% if user_signed_in? %>
         <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
         <li><%= link_to 'Your Conversations', conversations_path %></li>
@@ -24,24 +30,37 @@
         <li><%= link_to 'Log In', new_user_session_path %></li>
       <% end %>
     </ul>
-  </div>
-</nav>
 
-<div class="container">
-  <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>">
-      <%= value %>
+    
+    <% if !user_signed_in? %>
+      <p class="sign_in"><%= link_to "Admin Login", new_user_session_path %></p>
+    <% end %>
+  </div>
+
+  <div id="main_content">
+    <div id="header">
+        <%= link_to "Welcome to ChatWale", root_path %>
+      <% if user_signed_in? %>
+        <div class="buttons">
+          <button class="button">Log Out</button>
+        </div>
+      <% end %>
     </div>
-  <% end %>
 
-  <div class="page-header">
-    <h1><%= yield :page_header %></h1>
+      <div class="container">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+
+        <div class="page-header">
+        <h1><%= yield :page_header %></h1>
   </div>
 
-  <%= yield %>
-</div>
-
-<footer>
+    <%= yield %>
+    </div>
+<footer class="navbar-fixed-bottom">
   <div class="container">
     <p class="text-muted">Created by <a href="#" target="_blank">Team ADR</a></p>
   </div>
