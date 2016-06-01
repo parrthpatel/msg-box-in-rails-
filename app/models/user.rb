@@ -29,4 +29,11 @@ class User < ActiveRecord::Base
   def mailboxer_email(object)
     email
   end
+  def destroy
+    @user = User.find(params[:id])
+
+    if @user.destroy
+        redirect_to root_url, notice: "User deleted."
+    end
+  end
 end

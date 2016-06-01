@@ -2,17 +2,24 @@
 
 <%= will_paginate %>
 
-  <table class="table table-hover">
+  <table class="table table-ho">
   <tr>
   	<th>user name</th>
   	<th> Click to send msg</th>
+  	<th><% if current_user.admin == true %>
+  	Action
+  	<% end %>
+  	</th>
   </tr>
   <% @users.each do |user| %>
   	<tr>
   	<td><strong><%= user.name %></strong></td>
   	<td><% unless current_user == user %>
         <%= link_to 'Send message', new_message_path(to: user.id), class: 'button' %></td>
+     <td><% if current_user.admin == true %>
+        <%= link_to 'Delete', edit_user_registration_path(to: user), method: :delete, class: 'button' %></td>
   	</tr>
+  	<% end %>
       <% end %>  	
   <% end %>
 
