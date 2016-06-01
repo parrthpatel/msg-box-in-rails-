@@ -42,7 +42,7 @@
         <%= link_to "Welcome to ChatWale", root_path %>
       <% if user_signed_in? %>
         <div class="buttons">
-          <button class="button">Log Out</button>
+        <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'button' %>
         </div>
       <% end %>
     </div>
